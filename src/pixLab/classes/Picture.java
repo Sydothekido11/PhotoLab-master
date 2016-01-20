@@ -99,6 +99,32 @@ public class Picture extends SimplePicture
     }
   }
   
+  public void zeroRed()
+  {
+	  Pixel[][] redPixels = this.getPixels2D();
+	  for (int row = 0; row < redPixels.length; row++)
+	  {
+		  for(int col = 0; col < redPixels[0].length; col++)
+		  {
+			  Pixel currentPixel = redPixels[row][col];
+			  currentPixel.setRed(0);
+		  }
+	  }
+  }
+  
+  public void zeroGreen()
+  {
+	  Pixel[][] greenPixels = this.getPixels2D();
+	  for(int row = 0; row < greenPixels.length; row++)
+	  {
+		  for(int col = 0; col < greenPixels[0].length; col++)
+		  {
+			  Pixel currentPixel = greenPixels[row][col];
+			  currentPixel.setGreen(0);
+		  }
+	  }
+  }
+  
   /** Method that mirrors the picture around a 
     * vertical mirror in the center of the picture
     * from left to right */
@@ -178,7 +204,7 @@ public class Picture extends SimplePicture
   public void createCollage()
   {
     Picture flower1 = new Picture("flower1.jpg");
-    Picture flower2 = new Picture("flower2.jpg");
+    Picture flower2 = new Picture("flower1.jpg");
     this.copy(flower1,0,0);
     this.copy(flower2,100,0);
     this.copy(flower1,200,0);
@@ -226,7 +252,11 @@ public class Picture extends SimplePicture
   {
     Picture beach = new Picture("beach.jpg");
     beach.explore();
-    beach.zeroBlue();
+  //  beach.zeroBlue();
+    //beach.explore();
+   // beach.zeroRed();
+   // beach.explore();
+    beach.zeroGreen();
     beach.explore();
   }
   
