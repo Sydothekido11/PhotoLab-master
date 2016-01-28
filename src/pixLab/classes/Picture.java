@@ -125,6 +125,41 @@ public class Picture extends SimplePicture
 	  }
   }
   
+  public void keepOnlyBlue()
+  {
+	  zeroGreen();
+	  zeroRed();
+  }
+  
+  public void keepOnlyRed()
+  {
+	  zeroBlue();
+	  zeroGreen();
+  }
+  
+  public void keepOnlyGreen()
+  {
+	 zeroRed();
+	 zeroBlue();
+  }
+  
+  public void mirrorVerticalRightToLeft()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Pixel leftPixel = null;
+	  Pixel rightPixel = null;
+	  int width = pixels[0].length;
+	   for(int row = 0; row < pixels.length; row++)
+	   {
+		   for(int col = pixels[0].length - 1; col > width / 2; col--)
+		   {
+			   rightPixel = pixels[row][col];
+			   leftPixel = pixels[row][ (width / 2) - (col - width / 2)];
+			   leftPixel.setColor(rightPixel.getColor());
+		   }
+	   }
+  }
+  
   /** Method that mirrors the picture around a 
     * vertical mirror in the center of the picture
     * from left to right */
@@ -143,6 +178,41 @@ public class Picture extends SimplePicture
         rightPixel.setColor(leftPixel.getColor());
       }
     } 
+  }
+  
+  public void mirrorHorizontal()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Pixel topPixel = null;
+	  Pixel bottomPixel = null;
+	  int height = pixels.length;
+	  for(int row = 0; row < height / 2; row++)
+	  {
+		  for(int col = 0; col < pixels[0].length; col++)
+		  {
+			  topPixel = pixels[row][col];
+			  bottomPixel = pixels[height - 1 - row][col];
+			  bottomPixel.setColor(topPixel.getColor());
+		  }
+	  }
+  }
+  
+  public void mirrorHorizontalBottomToTop()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Pixel topPixel = null;
+	  Pixel bottomPixel = null;
+	  int height = pixels.length;
+	  
+	  for(int col = 0; col < pixels.length; col++)
+	  {
+		  for(int row = pixels[0].length - 1; row > height / 2; row--)
+		  {
+			  bottomPixel = pixels[row][col];
+			  topPixel = pixels[(height / 2) - (row - height / 2)][col];
+			  topPixel.setColor(bottomPixel.getColor());
+		  }
+	  }
   }
   
   /** Mirror just part of a picture of a temple */
@@ -168,6 +238,8 @@ public class Picture extends SimplePicture
       }
     }
   }
+  
+
   
   /** copy from the passed fromPic to the
     * specified startRow and startCol in the
@@ -217,6 +289,15 @@ public class Picture extends SimplePicture
     this.write("collage.jpg");
   }
   
+  public void butterflyCollage()
+  {
+	  Picture bluebutterfly = new Picture("bluebutterfly.jpg");
+	  this.copy(bluebutterfly,0,0);
+	  this.copy(bluebutterfly,200,0);
+	  this.copy(bluebutterfly,400,0);
+	  this.write("Suga Collage");
+  }
+   
   
   /** Method to show large changes in color 
     * @param edgeDist the distance for finding edges
@@ -250,14 +331,19 @@ public class Picture extends SimplePicture
    */
   public static void main(String[] args) 
   {
-    Picture beach = new Picture("beach.jpg");
-    beach.explore();
-  //  beach.zeroBlue();
+    Picture suga = new Picture("suga.jpg");
+    suga.explore();
+    suga.butterflyCollage();
+    suga.explore();
+    suga.mirrorHorizontalBottomToTop();
+    suga.explore();
+    
+  //beach.zeroBlue();
+  //beach.explore();
+  //beach.zeroRed();
+  //beach.explore();
+    //beach.zeroGreen();
     //beach.explore();
-   // beach.zeroRed();
-   // beach.explore();
-    beach.zeroGreen();
-    beach.explore();
   }
   
 } // this } is the end of class Picture, put all new methods before this
