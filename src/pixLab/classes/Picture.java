@@ -203,14 +203,44 @@ public class Picture extends SimplePicture
 	  Pixel topPixel = null;
 	  Pixel bottomPixel = null;
 	  int height = pixels.length;
-	  
-	  for(int col = 0; col < pixels.length; col++)
+	  for(int row = height - 1; row > height / 2; row--)
 	  {
-		  for(int row = pixels[0].length - 1; row > height / 2; row--)
+		  for(int col = 0; col < pixels[0].length; col++)
 		  {
 			  bottomPixel = pixels[row][col];
 			  topPixel = pixels[(height / 2) - (row - height / 2)][col];
 			  topPixel.setColor(bottomPixel.getColor());
+		  }
+	  }
+  }
+  
+  public void mirrorArms()
+  {
+	  int mirrorPoint1 = 206;
+	  int mirrorPoint2 = 200;
+	  int mirrorPoint3 = 198;
+	  Pixel firstPixel = null;
+	  Pixel secondPixel = null;
+	  Pixel[][] pixels = this.getPixels2D();
+	  {
+		  for(int row = 158; row < 194; row++)
+		  {
+			  for(int col = 102; col < 172; col++)
+			  {
+				  firstPixel = pixels[row][col];
+				  secondPixel = pixels[mirrorPoint1 - row + mirrorPoint1][mirrorPoint2 - col + mirrorPoint2];
+				  secondPixel.setColor(firstPixel.getColor());
+			  }
+		  }
+		  
+		  for(int row = 168; row < 290; row++)
+		  {
+			  for(int col = 240; col < 300; col++)
+			  {
+				  firstPixel = pixels[row][col];
+				  secondPixel = pixels[mirrorPoint3 - row + mirrorPoint3][mirrorPoint1 - col + mirrorPoint1];
+				  secondPixel.setColor(firstPixel.getColor());
+			  }
 		  }
 	  }
   }
@@ -333,17 +363,18 @@ public class Picture extends SimplePicture
   {
     Picture suga = new Picture("suga.jpg");
     suga.explore();
-    suga.butterflyCollage();
+    suga.mirrorVertical();
     suga.explore();
-    suga.mirrorHorizontalBottomToTop();
-    suga.explore();
-    
-  //beach.zeroBlue();
-  //beach.explore();
-  //beach.zeroRed();
-  //beach.explore();
-    //beach.zeroGreen();
-    //beach.explore();
+   //suga.butterflyCollage();
+   //suga.explore();
+   //suga.mirrorHorizontalBottomToTop();
+   //suga.explore();
+   //beach.zeroBlue();
+   //beach.explore();
+   //beach.zeroRed();
+   //beach.explore();
+   //beach.zeroGreen();
+   //beach.explore();
   }
   
 } // this } is the end of class Picture, put all new methods before this
